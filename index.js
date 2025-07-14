@@ -12,7 +12,7 @@ app.use(cors());
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: process.env.SMTP_PORT,
-  secure: false, // true para 465
+  secure: true, // true para 465
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
@@ -40,6 +40,8 @@ app.post('/send-email', async (req, res) => {
     res.status(500).json({ error: 'Error al enviar el correo.' });
   }
 });
+
+app.use(express.static('public'));
 
 app.listen(3001, () => {
   console.log('Servidor escuchando en http://localhost:3001');
